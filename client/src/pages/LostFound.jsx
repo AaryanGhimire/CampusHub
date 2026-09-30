@@ -16,7 +16,7 @@ function LostFound() {
   const isAdmin = user?.role === "admin"
 
   useEffect(() => {
-    fetch("http://localhost:5000/lost-found")
+    fetch("https://campushub-api-k9ug.onrender.com/lost-found")
       .then((response) => response.json())
       .then((data) => {
         setItems(data)
@@ -49,8 +49,8 @@ function LostFound() {
     try {
       const url =
         editingId === null
-          ? "http://localhost:5000/lost-found"
-          : `http://localhost:5000/lost-found/${editingId}`
+          ? "https://campushub-api-k9ug.onrender.com/lost-found"
+          : `https://campushub-api-k9ug.onrender.com/lost-found/${editingId}`
 
       const method = editingId === null ? "POST" : "PUT"
 
@@ -128,7 +128,7 @@ function LostFound() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/lost-found/${id}`,
+        `https://campushub-api-k9ug.onrender.com/lost-found/${id}`,
         {
           method: "DELETE",
           headers: {

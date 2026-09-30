@@ -14,7 +14,7 @@ function Events() {
   const isAdmin = user?.role === "admin"
 
   useEffect(() => {
-    fetch("http://localhost:5000/events")
+    fetch("https://campushub-api-k9ug.onrender.com/events")
       .then((response) => response.json())
       .then((data) => {
         setEvents(data)
@@ -45,8 +45,8 @@ function Events() {
     try {
       const url =
         editingId === null
-          ? "http://localhost:5000/events"
-          : `http://localhost:5000/events/${editingId}`
+          ? "https://campushub-api-k9ug.onrender.com/events"
+          : `https://campushub-api-k9ug.onrender.com/events/${editingId}`
 
       const method = editingId === null ? "POST" : "PUT"
 
@@ -118,7 +118,7 @@ function Events() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/events/${id}`,
+        `https://campushub-api-k9ug.onrender.com/events/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -27,11 +27,11 @@ function Dashboard() {
           clubsResponse,
           lostFoundResponse,
         ] = await Promise.all([
-          fetch("http://localhost:5000/announcements"),
-          fetch("http://localhost:5000/events"),
-          fetch("http://localhost:5000/resources"),
-          fetch("http://localhost:5000/clubs"),
-          fetch("http://localhost:5000/lost-found"),
+          fetch("https://campushub-api-k9ug.onrender.com/announcements"),
+          fetch("https://campushub-api-k9ug.onrender.com/events"),
+          fetch("https://campushub-api-k9ug.onrender.com/resources"),
+          fetch("https://campushub-api-k9ug.onrender.com/clubs"),
+          fetch("https://campushub-api-k9ug.onrender.com/lost-found"),
         ])
 
         const [

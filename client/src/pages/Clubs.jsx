@@ -13,7 +13,7 @@ function Clubs() {
   const isAdmin = user?.role === "admin"
 
   useEffect(() => {
-    fetch("http://localhost:5000/clubs")
+    fetch("https://campushub-api-k9ug.onrender.com/clubs")
       .then((response) => response.json())
       .then((data) => {
         setClubs(data)
@@ -43,8 +43,8 @@ function Clubs() {
     try {
       const url =
         editingId === null
-          ? "http://localhost:5000/clubs"
-          : `http://localhost:5000/clubs/${editingId}`
+          ? "https://campushub-api-k9ug.onrender.com/clubs"
+          : `https://campushub-api-k9ug.onrender.com/clubs/${editingId}`
 
       const method = editingId === null ? "POST" : "PUT"
 
@@ -114,7 +114,7 @@ function Clubs() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/clubs/${id}`,
+        `https://campushub-api-k9ug.onrender.com/clubs/${id}`,
         {
           method: "DELETE",
           headers: {

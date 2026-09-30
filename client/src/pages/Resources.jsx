@@ -14,7 +14,7 @@ function Resources() {
   const isAdmin = user?.role === "admin"
 
   useEffect(() => {
-    fetch("http://localhost:5000/resources")
+    fetch("https://campushub-api-k9ug.onrender.com/resources")
       .then((response) => response.json())
       .then((data) => {
         setResources(data)
@@ -45,8 +45,8 @@ function Resources() {
     try {
       const url =
         editingId === null
-          ? "http://localhost:5000/resources"
-          : `http://localhost:5000/resources/${editingId}`
+          ? "https://campushub-api-k9ug.onrender.com/resources"
+          : `https://campushub-api-k9ug.onrender.com/resources/${editingId}`
 
       const method = editingId === null ? "POST" : "PUT"
 
@@ -118,7 +118,7 @@ function Resources() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/resources/${id}`,
+        `https://campushub-api-k9ug.onrender.com/resources/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -14,7 +14,7 @@ function Announcements() {
   const isAdmin = user?.role === "admin"
 
   useEffect(() => {
-    fetch("http://localhost:5000/announcements")
+    fetch("https://campushub-api-k9ug.onrender.com/announcements")
       .then((response) => response.json())
       .then((data) => {
         setAnnouncements(data)
@@ -37,7 +37,7 @@ function Announcements() {
     try {
       if (editingId === null) {
         const response = await fetch(
-          "http://localhost:5000/announcements",
+          "https://campushub-api-k9ug.onrender.com/announcements",
           {
             method: "POST",
             headers: {
@@ -66,7 +66,7 @@ function Announcements() {
         ])
       } else {
         const response = await fetch(
-          `http://localhost:5000/announcements/${editingId}`,
+          `https://campushub-api-k9ug.onrender.com/announcements/${editingId}`,
           {
             method: "PUT",
             headers: {
@@ -142,7 +142,7 @@ function Announcements() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/announcements/${id}`,
+        `https://campushub-api-k9ug.onrender.com/announcements/${id}`,
         {
           method: "DELETE",
           headers: {
