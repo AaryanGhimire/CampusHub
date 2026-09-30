@@ -4,11 +4,19 @@ CampusHub is a full-stack campus management and information platform built to br
 
 The project provides a role-based environment where students can browse campus information while administrators can create, update, and manage campus content.
 
+## Live Demo
+
+**Frontend:** https://campus-hub-pi-six.vercel.app/
+
+**Backend API:** https://campushub-api-k9ug.onrender.com/
+
+The frontend is deployed on Vercel, the Express backend is deployed on Render, and the production PostgreSQL database is hosted on Neon.
+
 ---
 
-## Features
+# Features
 
-### Student Features
+## Student Features
 
 * Student registration and login
 * JWT-based authentication
@@ -21,7 +29,7 @@ The project provides a role-based environment where students can browse campus i
 * Student-focused dashboard
 * Responsive interface for desktop and mobile
 
-### Administrator Features
+## Administrator Features
 
 * Secure administrator authentication
 * Administrator dashboard
@@ -44,9 +52,9 @@ The project provides a role-based environment where students can browse campus i
 
 ---
 
-## Tech Stack
+# Tech Stack
 
-### Frontend
+## Frontend
 
 * React
 * Vite
@@ -54,7 +62,7 @@ The project provides a role-based environment where students can browse campus i
 * React Router
 * JavaScript
 
-### Backend
+## Backend
 
 * Node.js
 * Express.js
@@ -63,11 +71,12 @@ The project provides a role-based environment where students can browse campus i
 * bcryptjs
 * CORS
 
-### Database
+## Database
 
 * PostgreSQL
+* Neon PostgreSQL
 
-### Development & Tools
+## Development & Tools
 
 * Git
 * GitHub
@@ -75,26 +84,51 @@ The project provides a role-based environment where students can browse campus i
 * Postman
 * pgAdmin
 
+## Deployment
+
+* Vercel — Frontend
+* Render — Backend API
+* Neon — Production PostgreSQL database
+
 ---
 
-## System Architecture
+# System Architecture
 
-CampusHub follows a three-layer architecture:
+CampusHub follows a full-stack client-server architecture.
 
 ```text
-                    CAMPUSHUB
-                        │
-          ┌─────────────┴─────────────┐
-          │                           │
-      Frontend                    Backend
-   React + Vite              Node + Express
-   Tailwind CSS                  REST API
-   React Router                    │
-          │                         │
-          └────────── HTTP ─────────┘
-                                    │
-                              PostgreSQL
-                                 Database
+                         CAMPUSHUB
+                             │
+                 ┌───────────┴───────────┐
+                 │                       │
+             Frontend                Backend API
+          React + Vite             Node + Express
+          Tailwind CSS              REST API
+          React Router                  │
+                 │                       │
+                 └────── HTTP/JSON ─────┘
+                                         │
+                                         ▼
+                                  PostgreSQL
+                                     Neon
+```
+
+### Production Architecture
+
+```text
+                         GitHub
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+              ▼                         ▼
+          Vercel                     Render
+        React Frontend            Express Backend
+              │                         │
+              └──────── HTTP ───────────┘
+                                        │
+                                        ▼
+                                      Neon
+                                  PostgreSQL DB
 ```
 
 The frontend communicates with the Express backend through HTTP requests.
@@ -103,7 +137,7 @@ The backend processes requests, performs authentication and authorization checks
 
 ---
 
-## Application Workflow
+# Application Workflow
 
 A typical request follows this flow:
 
@@ -139,7 +173,7 @@ React Frontend
 Updated UI
 ```
 
-### Example: Loading Announcements
+## Example: Loading Announcements
 
 ```text
 Student opens Announcements
@@ -189,7 +223,7 @@ Password hashed with bcryptjs
 User stored in PostgreSQL
 ```
 
-Passwords are not stored as plain text.
+Passwords are never stored as plain text.
 
 ---
 
@@ -288,9 +322,11 @@ Stores registered CampusHub accounts.
 ```text
 users
 ├── id
+├── name
 ├── email
 ├── password
-└── role
+├── role
+└── created_at
 ```
 
 Roles include:
@@ -360,7 +396,7 @@ clubs
 
 ## Lost & Found
 
-Stores campus lost and found listings.
+Stores campus Lost & Found listings.
 
 ```text
 lost_found
@@ -497,6 +533,8 @@ server/
 
 Sensitive configuration such as database credentials and JWT secrets is stored in environment variables.
 
+The production PostgreSQL connection uses SSL for the Neon database.
+
 ---
 
 # Project Structure
@@ -528,7 +566,7 @@ CampusHub/
 
 ## Prerequisites
 
-Install the following before running CampusHub:
+Install the following before running CampusHub locally:
 
 * Node.js
 * npm
@@ -540,13 +578,13 @@ Install the following before running CampusHub:
 ## 1. Clone the Repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone https://github.com/AaryanGhimire/CampusHub.git
 cd CampusHub
 ```
 
 ---
 
-# 2. Setup Backend
+## 2. Setup Backend
 
 ```bash
 cd server
@@ -563,7 +601,6 @@ DB_HOST=localhost
 DB_NAME=campushub
 DB_PASSWORD=your_postgres_password
 DB_PORT=5432
-
 JWT_SECRET=your_secret_key
 ```
 
@@ -597,18 +634,24 @@ Add the required seed data if desired.
 From the `server` directory:
 
 ```bash
-node server.js
+npm start
 ```
 
-The backend runs locally on:
+The local backend runs on:
 
 ```text
 http://localhost:5000
 ```
 
+The production backend is available at:
+
+```text
+https://campushub-api-k9ug.onrender.com
+```
+
 ---
 
-# 5. Setup Frontend
+## 5. Setup Frontend
 
 Open another terminal:
 
@@ -631,9 +674,56 @@ http://localhost:5173
 
 ---
 
+# Production Deployment
+
+CampusHub is deployed using separate frontend, backend, and database services.
+
+```text
+                     GitHub
+                       │
+            ┌──────────┴──────────┐
+            │                     │
+            ▼                     ▼
+         Vercel                 Render
+       Frontend              Backend API
+            │                     │
+            │      HTTP/JSON      │
+            └─────────────────────┘
+                                  │
+                                  ▼
+                                Neon
+                             PostgreSQL
+```
+
+### Frontend
+
+The React/Vite application is deployed on Vercel.
+
+```text
+https://campus-hub-pi-six.vercel.app/
+```
+
+### Backend
+
+The Node/Express API is deployed on Render.
+
+```text
+https://campushub-api-k9ug.onrender.com/
+```
+
+### Database
+
+The production PostgreSQL database is hosted on Neon.
+
+The backend connects to Neon using environment variables for database credentials and JWT configuration.
+
+Sensitive credentials are not stored in the repository.
+
+---
+
 # Development Workflow
 
-During development, the project follows this workflow:
+During development, the project followed this workflow:
 
 ```text
 1. Build React UI
@@ -652,9 +742,17 @@ During development, the project follows this workflow:
         ↓
 8. Add admin CRUD
         ↓
-9. Responsive UI
+9. Build dashboards
         ↓
-10. Test complete application
+10. Responsive UI
+        ↓
+11. Production database
+        ↓
+12. Deploy backend
+        ↓
+13. Deploy frontend
+        ↓
+14. Test complete application
 ```
 
 ---
@@ -663,21 +761,21 @@ During development, the project follows this workflow:
 
 The application was tested across different user states.
 
-### Logged Out
+## Logged Out
 
 * Public pages accessible
 * Login available
 * Registration available
 * Protected dashboard requires authentication
 
-### Student
+## Student
 
 * Can access campus content
 * Can access dashboard
 * Can view announcements, events, resources, clubs and Lost & Found
 * Cannot perform administrator CRUD actions
 
-### Administrator
+## Administrator
 
 * Can access dashboard
 * Can view content statistics
@@ -687,6 +785,8 @@ The application was tested across different user states.
 * Administrator-only endpoints are protected
 
 Unauthorized administrator actions return an appropriate authorization error.
+
+The deployed application was also tested using the production frontend, backend API, and production database.
 
 ---
 
@@ -714,6 +814,7 @@ The project includes several basic security practices:
 * Environment variables for sensitive configuration
 * `.env` excluded from version control
 * CORS configuration
+* SSL connection for the production PostgreSQL database
 
 ---
 
@@ -741,6 +842,12 @@ Key concepts covered:
 * API testing with Postman
 * Responsive web design
 * Git and GitHub
+* Environment variables
+* Production database configuration
+* Full-stack deployment
+* Vercel deployment
+* Render deployment
+* Neon PostgreSQL
 
 ---
 
@@ -758,8 +865,9 @@ Possible future improvements include:
 * Pagination
 * More granular permissions
 * Admin user management
-* Production deployment
 * Automated testing
+* Improved error handling
+* Performance optimization
 
 These features are outside the current completed scope of the project.
 
@@ -768,19 +876,22 @@ These features are outside the current completed scope of the project.
 # Project Status
 
 ```text
-Frontend             ✅ Complete
-Backend              ✅ Complete
-PostgreSQL           ✅ Complete
-Authentication       ✅ Complete
-Authorization        ✅ Complete
-CRUD Operations      ✅ Complete
-Student Dashboard    ✅ Complete
-Admin Dashboard      ✅ Complete
-Responsive UI        ✅ Complete
-Documentation        ✅ Complete
-
-Deployment            ⏳ Next step
+Frontend              ✅ Complete
+Backend               ✅ Complete
+PostgreSQL            ✅ Complete
+Authentication        ✅ Complete
+Authorization         ✅ Complete
+CRUD Operations       ✅ Complete
+Student Dashboard     ✅ Complete
+Admin Dashboard       ✅ Complete
+Responsive UI         ✅ Complete
+Production Database   ✅ Complete
+Backend Deployment    ✅ Complete
+Frontend Deployment   ✅ Complete
+Documentation         ✅ Complete
 ```
+
+**CampusHub is complete and deployed as a full-stack web application.**
 
 ---
 
@@ -791,10 +902,10 @@ Deployment            ⏳ Next step
 BE Information Technology Student
 Nepal
 
-GitHub: `https://github.com/AaryanGhimire`
+GitHub: https://github.com/AaryanGhimire
 
 ---
 
-## License
+# License
 
 This project was created as a learning and portfolio project.
